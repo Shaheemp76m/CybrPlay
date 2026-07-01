@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=CybrPlay
+Comment=music player
+Icon=/home/ross/Downloads/vinyl.png
+Exec=/home/ross/projects/cybrplay/.venv/bin/python /home/ross/projects/cybrplay/renderer.py
+Path=/home/ross/projects/cybrplay
+Terminal=false
+Categories=AudioVideo;Music
