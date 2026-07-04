@@ -30,5 +30,6 @@ def song_and_metadata(waiting_for_next, fading_in_frames, fading_in, progress, f
         ui_color[2],
         alpha
     )
+    # print(waiting_for_next, fading_in, alpha)
     draw_song_ui(alpha, color, progress_x, progress, font, font2, info, title, info_x, song_x, ball_x, ball_y)
     return fading_in, fading_in_frames
