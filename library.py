@@ -16,7 +16,10 @@ def scan_music():
 
 def metadata(file, genres):
     audio = FLAC(file)
-    genres_of_song = audio.get("genre", ["Unknown"])
+    if "genre" not in audio:
+        return genres
+    genres_of_song = audio["genre"][0].split(",")
+
     for current_genre in genres_of_song:
         current_genre = current_genre.strip()
         if current_genre in genres:

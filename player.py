@@ -69,7 +69,16 @@ def song_progress(waiting_for_next):
         progress = 0.0
     return progress, waiting_for_next
 
+def change_genre(selected_genre, current_song):
+    state = {
+        "current_song": current_song,
+        "selected_genre": selected_genre,
+    }
+    with open("state.json","w") as f:
+        json.dump(state, f, indent=4)
+
 def load_state():
+    global current_song, selected_genre, songs
     with open("state.json","r") as f:
         state = json.load(f)
     current_song = state["current_song"]
@@ -77,7 +86,7 @@ def load_state():
     genre_names = list(genres.keys())
     selected_genre = state["selected_genre"]
     songs = genres[genre_names[selected_genre]]
-    return songs, current_song, selected_genre
+    return songs, current_song, selected_genre, genre_names
 
 def save_state():
     state = {
@@ -87,4 +96,4 @@ def save_state():
     with open("state.json","w") as f:
         json.dump(state, f, indent=4)
 
-songs, current_song, selected_genre = load_state()
+songs, current_song, selected_genre, genre_names = load_state()

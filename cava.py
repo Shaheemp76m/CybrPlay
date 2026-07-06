@@ -9,14 +9,5 @@ def start():
     return cava
     
 def read_frame(cava):
-    frame = cava.stdout.readline()
-    frame = frame.strip()
-    frame = frame.split(";")
-    
-    bars = []
-    frame.pop()
-    for bar in frame:
-        bar = int(bar)
-        bars.append(bar)
-    return bars
-
+    frame = cava.stdout.readline().strip().split(";")
+    return [int(bar) for bar in frame[:-1]]

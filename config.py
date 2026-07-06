@@ -16,8 +16,8 @@ gap_btw_tracks = 30 # fps
 render_fps = 60
 folder = "/home/ross/Music"
 
-screen_height = 720
-screen_width = 1350
+screen_height = 719
+screen_width = 1348
 
 
 total_spacing = no_of_bars * spacing

@@ -1,16 +1,20 @@
+from config import *
+import raylib
+from player import genre_names
 
-#        if menu == True:
-#            genre_y = 10
-#            no_of_genre_shown = 0
-#           for genre in genre_names:
-#               if (y + (50 * no_of_genre_shown)) >= 710:
-#                   raylib.DrawTextEx(font3, genre.encode(), (10, genre_y), 30, 1, song_color)
-#                   genre_y += 25
-#                   no_of_genre_shown += 1
-        #if raylib.IsKeyPressed(raylib.KEY_DOWN):
-        #    if menu:
-        #        raylib.ResumeMusicStream(music)
-        #        menu = False
-        #    else:
-        #        raylib.PauseMusicStream(music)
-        #        menu = True
+def render_menu(font3, cursor):
+    offset_y = -(cursor * 35)
+    genre_y = 220 + offset_y
+    for i, genre in enumerate(genre_names):
+        if i == cursor:
+            text = "> " + genre + " <"
+        else:
+            text = "" + genre
+        genre_width = raylib.MeasureTextEx(font3, text.encode(), 40, 1)
+        genre_x = (screen_width - genre_width.x) / 2
+        if i == cursor:
+            raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, ui_color)
+        else:
+            raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, (242, 72, 72, 159))
+        genre_y += 35
+
