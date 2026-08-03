@@ -1,9 +1,10 @@
-import library
+import raylib
 
-songs, genres = library.scan_music()
-no = 0
-for genre, songs in genres.items():
-    print(no, genre)
-    no += 1
-    for song in songs:
-        print("     ", song)
+raylib.InitWindow(800, 500, b"test")
+
+while not raylib.WindowShouldClose():
+        raylib.BeginDrawing()
+        raylib.ClearBackground(raylib.BLACK)
+        raylib.EndDrawing()
+
+raylib.CloseWindow()

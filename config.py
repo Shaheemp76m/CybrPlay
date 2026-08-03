@@ -1,9 +1,13 @@
+import json
+import raylib
+from hextotuple import hextotuple
+
+with open("/home/ross/.config/hypr/colors.json") as f: colors = json.load(f)
 # colors
-bottom_color = (99, 31, 33, 255)
-middle_color = (242, 72, 72, 255)
-top_color = (242, 97, 24, 200)
-ui_color = (242, 72, 72, 255)
-glow = (99, 31, 33, 40)
+bottom_color = hextotuple(colors["accent3"], 255)
+middle_color = hextotuple(colors["accent1"], 255)
+top_color = hextotuple(colors["accent2"], 255)
+ui_color = hextotuple(colors["accent1"], 255)
 
 # 
 block_height = 15
@@ -16,9 +20,14 @@ gap_btw_tracks = 30 # fps
 render_fps = 60
 folder = "/home/ross/Music"
 
-screen_height = 719
 screen_width = 1348
-
+screen_height = 716
 
 total_spacing = no_of_bars * spacing
 bar_width = (screen_width - total_spacing) // no_of_bars
+
+def update_screen():
+    global screen_width, screen_height
+
+    screen_width = raylib.GetScreenWidth()
+    screen_height = raylib.GetScreenHeight()

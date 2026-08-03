@@ -1,7 +1,7 @@
 import raylib
 from config import *
 
-def render_visualiser(bars, bar_width):
+def render_visualiser(bars, bsr):
     x = spacing
     for bar in bars:
         bar_height = int((bar / 1000) * screen_height)

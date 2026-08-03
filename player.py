@@ -4,23 +4,23 @@ import library
 from config import *
 from mutagen.flac import FLAC
 
-def start_playing(font, font2):
+def start_playing(font: raylib.Font, font2: raylib.Font):
     global music, audio, current_song
     audio = FLAC(songs[current_song])
     music = raylib.LoadMusicStream(songs[current_song].encode())
     raylib.PlayMusicStream(music)
     fading_in = True
     fading_in_frames = 0
-    title = audio["title"][0].encode()
+    title: bytes = audio["title"][0].encode()
     info = audio["album"][0] + " - " + audio["artist"][0]
-    info = info.encode()    
+    info: bytes = info.encode()
     song_width = raylib.MeasureTextEx(font2, title, 50, 1)
     info_width = raylib.MeasureTextEx(font, info, 20, 1)
     song_x = (screen_width - song_width.x) / 2
     info_x = (screen_width - info_width.x) / 2
-    return fading_in, fading_in_frames, title, info, song_width, info_width, song_x, info_x
+    return fading_in, fading_in_frames, title, info, song_x, info_x
 
-def song_change(go_to, font, font2):
+def song_change(go_to: str, font: raylib.Font, font2: raylib.Font):
     global music, audio, current_song
     # raylib.StopMusicStream(music)
     # raylib.UnloadMusicStream(music)
@@ -40,9 +40,9 @@ def song_change(go_to, font, font2):
     info_width = raylib.MeasureTextEx(font, info, 20, 1)
     song_x = (screen_width - song_width.x) / 2
     info_x = (screen_width - info_width.x) / 2
-    return fading_in, fading_in_frames, title, info, song_width, info_width, song_x, info_x
+    return fading_in, fading_in_frames, title, info, song_x, info_x
 
-def pause(paused):
+def pause(paused: bool):
     if paused:
         raylib.ResumeMusicStream(music)
         paused = False
@@ -57,7 +57,7 @@ def next_song():
     fading_in = True
     return waiting_for_next, fading_in
 
-def song_progress(waiting_for_next):
+def song_progress(waiting_for_next: bool):
     global current_song
     if int(raylib.GetMusicTimeLength(music)) <= int(raylib.GetMusicTimePlayed(music)):
         progress = 1.0
@@ -69,7 +69,7 @@ def song_progress(waiting_for_next):
         progress = 0.0
     return progress, waiting_for_next
 
-def change_genre(selected_genre, current_song):
+def change_genre(selected_genre: int, current_song: int):
     state = {
         "current_song": current_song,
         "selected_genre": selected_genre,
@@ -80,7 +80,7 @@ def change_genre(selected_genre, current_song):
 def load_state():
     global current_song, selected_genre, songs
     with open("state.json","r") as f:
-        state = json.load(f)
+        state: dict[str, int] = json.load(f)
     current_song = state["current_song"]
     songs, genres = library.scan_music()
     genre_names = list(genres.keys())
@@ -96,4 +96,8 @@ def save_state():
     with open("state.json","w") as f:
         json.dump(state, f, indent=4)
 
+current_song: int
+songs: list[str]
+selected_genre: int
+genre_names: list[str]
 songs, current_song, selected_genre, genre_names = load_state()

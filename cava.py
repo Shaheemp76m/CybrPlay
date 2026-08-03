@@ -1,13 +1,14 @@
-import subprocess
+from subprocess import Popen,  PIPE
 
 def start():
-    cava = subprocess.Popen(
+    cava = Popen(
         ["cava"],
-        stdout=subprocess.PIPE,
+        stdout=PIPE,
         text=True
     )
     return cava
     
-def read_frame(cava):
-    frame = cava.stdout.readline().strip().split(";")
+def read_frame(cava: Popen[str]):
+    assert cava.stdout is not None
+    frame: list[str] = cava.stdout.readline().strip().split(";")
     return [int(bar) for bar in frame[:-1]]

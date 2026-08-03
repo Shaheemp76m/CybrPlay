@@ -2,8 +2,13 @@ from config import *
 import raylib
 from player import genre_names
 
-def render_menu(font3, cursor):
-    offset_y = -(cursor * 35)
+genre_names: list[str]
+offset_y = 0.0
+
+def render_menu(font3: raylib.Font, cursor: int):
+    global offset_y
+    target_offset = -(cursor * 35)
+    offset_y += (target_offset - offset_y) * 0.15
     genre_y = 220 + offset_y
     for i, genre in enumerate(genre_names):
         if i == cursor:
@@ -15,6 +20,6 @@ def render_menu(font3, cursor):
         if i == cursor:
             raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, ui_color)
         else:
-            raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, (242, 72, 72, 159))
+            raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, top_color)
         genre_y += 35
 
