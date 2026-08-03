@@ -18,7 +18,7 @@ def scan_music():
     #    for genres, songs in genres.items()
     #    if len(songs) >= 3
     #}
-    return songs, genres
+    return genres
 
 def metadata(file: Path, genres: dict[str, list[str]]):
     audio = FLAC(file)
