@@ -7,7 +7,7 @@ def draw_song_ui(alpha: int, color: tuple[int, int, int, int], ball_color: tuple
     raylib.DrawTextEx(font, info, (info_x, 37), 20, 1, color)
     raylib.DrawTextEx(font2, title, (song_x, 60), 50, 1, color)
 
-def song_and_metadata(waiting_for_next: bool, fading_in_frames: int, fading_in: bool, progress: float, font: raylib.Font, font2: raylib.Font, info: bytes, title: bytes, info_x: int, song_x: int, gap_frames: int):
+def song_and_metadata(waiting_for_next: bool, fading_in_frames: int, fading_in: bool, progress: float, font: raylib.Font, font2: raylib.Font, info: bytes, title: bytes, info_x: int, song_x: int, gap_frames: int, screen_width):
     progress_x = (screen_width - 400) // 2
     ball_x = progress_x + 8 + (progress * (progress_width - 8 * 2))
     ball_y = progress_y + (progress_height / 2)

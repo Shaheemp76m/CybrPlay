@@ -4,7 +4,7 @@ import library
 from config import *
 from mutagen.flac import FLAC
 
-def start_playing(font: raylib.Font, font2: raylib.Font):
+def start_playing(font: raylib.Font, font2: raylib.Font, screen_width: int):
     global music, audio, current_song
     audio = FLAC(songs[current_song])
     music = raylib.LoadMusicStream(songs[current_song].encode())
@@ -20,19 +20,17 @@ def start_playing(font: raylib.Font, font2: raylib.Font):
     info_x = (screen_width - info_width.x) / 2
     return fading_in, fading_in_frames, title, info, song_x, info_x
 
-def song_change(go_to: str, font: raylib.Font, font2: raylib.Font, cursor: int):
+def song_change(go_to: str, font: raylib.Font, font2: raylib.Font, cursor: int, screen_width: int):
 
     global music, audio, current_song, selected_genre
-    # raylib.StopMusicStream(music)
-    # raylib.UnloadMusicStream(music)
 
     if go_to == "next":
         if current_song < len(songs) - 1:
             current_song += 1
         else:
             current_song = 0
-            print(selected_genre)
-            print(cursor)
+            # print(selected_genre)
+            # print(cursor)
             change_genre(cursor, 0)
             load_state()
 
@@ -42,8 +40,8 @@ def song_change(go_to: str, font: raylib.Font, font2: raylib.Font, cursor: int):
 
     elif go_to == "nextalbum":
         current_song = 0
-        print(selected_genre)
-        print(cursor)
+        # print(selected_genre)
+        # print(cursor)
         selected_genre = (selected_genre + 1) % len(genre_names)
         cursor = selected_genre
         change_genre(cursor, 0)
@@ -92,10 +90,10 @@ def song_progress(waiting_for_next: bool, go_to: str):
         raylib.PauseMusicStream(music)
         waiting_for_next = True
         if current_song == len(songs) - 1:
-            print("next album", current_song, len(songs))
+            # print("next album", current_song, len(songs))
             go_to = "nextalbum"
         else:
-            print("next song", current_song, len(songs))
+            # print("next song", current_song, len(songs))
             go_to = "next"
     elif raylib.GetMusicTimeLength(music) > 0:
         progress = raylib.GetMusicTimePlayed(music) / raylib.GetMusicTimeLength(music)

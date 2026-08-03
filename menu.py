@@ -5,7 +5,7 @@ from player import genre_names
 genre_names: list[str]
 offset_y = 0.0
 
-def render_menu(font3: raylib.Font, cursor: int):
+def render_menu(font3: raylib.Font, cursor: int, screen_width: int):
     global offset_y
     target_offset = -(cursor * 35)
     offset_y += (target_offset - offset_y) * 0.15

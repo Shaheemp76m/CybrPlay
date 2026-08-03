@@ -22,9 +22,9 @@ def scan_music():
 
 def metadata(file: Path, genres: dict[str, list[str]]):
     audio = FLAC(file)
-    if "album" not in audio:
+    if "genre" not in audio:
         return genres
-    genres_of_song: list[str] = str(audio["album"][0]).split(",")
+    genres_of_song: list[str] = str(audio["genre"][0]).split(",")
 
     for current_genre in genres_of_song:
         current_genre = current_genre.strip()
