@@ -38,20 +38,23 @@ def renderer():
     waiting_for_next = False
     gap_frames = 0
 
-    update_screen()
-    fading_in, fading_in_frames, title, info, song_x, info_x = player.start_playing(font, font2, screen_width)
-    bar_width, song_x, info_x = update_layout(font, font2, title, info)
     paused = False
+    starting: bool = True
     ismenu = False
     cursor = player.selected_genre
     go_to: str = ""
 
     while not raylib.WindowShouldClose():
         update_screen()
+        if starting:
+            fading_in, fading_in_frames, title, info, song_x, info_x = player.start_playing(font, font2, screen_width)
+            bar_width, song_x, info_x = update_layout(font, font2, title, info)
+            starting = False
+
         # print("init:", raylib.GetScreenWidth(), raylib.GetScreenHeight())
 
         if waiting_for_next == False:
-            raylib.UpdateMusicStream(player.music)
+            raylib.UpdateMusicStream(player.music)  # pyright: ignore[reportUnknownMemberType]
             go_to = "next"
         else:
             if gap_frames >= gap_btw_tracks:
@@ -80,7 +83,7 @@ def renderer():
                 # print(cursor)
         else:
             if raylib.IsKeyPressed(raylib.KEY_DOWN):
-                raylib.PauseMusicStream(player.music)
+                raylib.PauseMusicStream(player.music)  # pyright: ignore[reportUnknownMemberType]
                 ismenu = True
                 waiting_for_next = True
 
@@ -110,7 +113,7 @@ def renderer():
         bars: list[int] = cava.read_frame(visualiser)
 
         raylib.BeginDrawing()
-        raylib.ClearBackground(raylib.BLANK)
+        raylib.ClearBackground(raylib.BLANK)  # pyright: ignore[reportUnknownMemberType]
 
         progress, waiting_for_next, go_to = player.song_progress(waiting_for_next, go_to)
 
@@ -122,9 +125,9 @@ def renderer():
             waiting_for_next, fading_in_frames, fading_in, progress, font, font2, info, title, info_x, song_x, gap_frames, screen_width)
         raylib.EndDrawing()
     raylib.CloseAudioDevice()
-    raylib.UnloadFont(font)
-    raylib.UnloadFont(font2)
-    raylib.UnloadFont(font3)
+    raylib.UnloadFont(font)  # pyright: ignore[reportUnknownMemberType]
+    raylib.UnloadFont(font2)  # pyright: ignore[reportUnknownMemberType]
+    raylib.UnloadFont(font3)  # pyright: ignore[reportUnknownMemberType]
     raylib.CloseWindow()
     player.save_state()
 renderer()

@@ -18,8 +18,8 @@ def render_menu(font3: raylib.Font, cursor: int, screen_width: int):
         genre_width = raylib.MeasureTextEx(font3, text.encode(), 40, 1)
         genre_x = (screen_width - genre_width.x) / 2
         if i == cursor:
-            raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, ui_color)
+            raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, ui_color)  # pyright: ignore[reportUnknownMemberType]
         else:
-            raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, top_color)
+            raylib.DrawTextEx(font3, text.encode(), (genre_x, genre_y), 40, 1, top_color)  # pyright: ignore[reportUnknownMemberType]
         genre_y += 35
 

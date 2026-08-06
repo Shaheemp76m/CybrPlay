@@ -2,10 +2,10 @@ import raylib
 from config import *
 
 def draw_song_ui(alpha: int, color: tuple[int, int, int, int], ball_color: tuple[int, int, int, int], progress_x: int, font: raylib.Font, font2: raylib.Font, info: bytes, title: bytes, info_x: int, song_x: int, ball_x: float, ball_y: float):
-    raylib.DrawRectangleRounded((progress_x, progress_y, progress_width, progress_height), 1, 20, color)
-    raylib.DrawCircle(int(ball_x), int(ball_y), 6, ball_color)
-    raylib.DrawTextEx(font, info, (info_x, 37), 20, 1, color)
-    raylib.DrawTextEx(font2, title, (song_x, 60), 50, 1, color)
+    raylib.DrawRectangleRounded((progress_x, progress_y, progress_width, progress_height), 1, 20, color)  # pyright: ignore[reportUnknownMemberType]
+    raylib.DrawCircle(int(ball_x), int(ball_y), 6, ball_color)  # pyright: ignore[reportUnknownMemberType]
+    raylib.DrawTextEx(font, info, (info_x, 37), 20, 1, color)  # pyright: ignore[reportUnknownMemberType]
+    raylib.DrawTextEx(font2, title, (song_x, 60), 50, 1, color)  # pyright: ignore[reportUnknownMemberType]
 
 def song_and_metadata(waiting_for_next: bool, fading_in_frames: int, fading_in: bool, progress: float, font: raylib.Font, font2: raylib.Font, info: bytes, title: bytes, info_x: int, song_x: int, gap_frames: int, screen_width):
     progress_x = (screen_width - 400) // 2

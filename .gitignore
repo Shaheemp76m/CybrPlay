@@ -47,3 +47,6 @@ config.local.py
 
 # Screenshots/videos generated while developing (optional)
 screenshots/*.mp4
+
+# test files
+test.py

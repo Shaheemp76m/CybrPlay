@@ -5,6 +5,7 @@ from mutagen.flac import FLAC
 def scan_music():
     songs: list[str] = []
     genres: dict[str, list[str]] = {}
+    genres["Singles"] = []
     suported = ".flac"
     music_dir = Path(folder)
 
@@ -13,18 +14,24 @@ def scan_music():
             genres = metadata(file, genres)
             songs.append(str(file))
 
-    # genres = {
-    #    genres: songs
-    #    for genres, songs in genres.items()
-    #    if len(songs) >= 3
-    #}
+    genres_to_delete: list[str] = []
+    for genre, songs in genres.items():
+        if len(songs) < 3:
+            for song in songs:
+                genres["Singles"].append(str(song))
+                if not genre in genres_to_delete:
+                    genres_to_delete.append(str(genre))
+
+    for genre in genres_to_delete:
+        _ = genres.pop(genre)
+
     return genres
 
 def metadata(file: Path, genres: dict[str, list[str]]):
     audio = FLAC(file)
-    if "genre" not in audio:
+    if "album" not in audio:
         return genres
-    genres_of_song: list[str] = str(audio["genre"][0]).split(",")
+    genres_of_song: list[str] = str(audio["album"][0]).split(",")
 
     for current_genre in genres_of_song:
         current_genre = current_genre.strip()
@@ -43,7 +50,7 @@ def metadata(file: Path, genres: dict[str, list[str]]):
     return genres
 
 if __name__ == '__main__':
-    songs, genres = scan_music()
+    genres = scan_music()
     genres = {
         genres: songs
         for genres, songs in genres.items()
